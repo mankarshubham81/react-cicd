@@ -8,7 +8,18 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14.17.0'
-      - run: node -v
+      - name: Inastall node_modules
+        run: npm install
+      - name: build the project
+        run: npm run build
+      - name: deploying the project
+        env: 
+          VERCEL_ORD_ID: Wz1QBSDH1tydbCR3ATcUK4Ow
+          POJECT_ID: prj_PWDhfRV2AxpJgiLtKlnX73hyLQXQ
+        run: npm deploy
+        - name: deploying the project
+        run: echo "hurryy!"
+
 
 # name: My First Github Action
 # on: [push]
