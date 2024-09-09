@@ -11,7 +11,7 @@ jobs:
       - name: Inastall node_modules
         run: npm install
       - name: build the project
-        run: npm run build
+        run: npm build
       - name: deploying the project
         env: 
           VERCEL_ORD_ID: Wz1QBSDH1tydbCR3ATcUK4Ow
