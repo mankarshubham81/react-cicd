@@ -1,31 +1,33 @@
-name: My First Github Action
-on: [push]
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   build-app:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '14.17.0'
-      - name: Inastall node_modules
+          node-version: '18' # It's better to use the latest LTS version.
+
+      - name: Install dependencies
         run: npm install
-      - name: build the project
-        run: npm build
-      - name: deploying the project
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Deploying the project to Vercel
         env: 
-          VERCEL_ORD_ID: Wz1QBSDH1tydbCR3ATcUK4Ow
-          POJECT_ID: prj_PWDhfRV2AxpJgiLtKlnX73hyLQXQ
-        run: npm deploy
-        - name: Setup Finish
-        run: echo "hurryy!"
+          VERCEL_TOKEN: Wz1QBSDH1tydbCR3ATcUK4Ow
+        run: npm run deploy
 
-
-# name: My First Github Action
-# on: [push]
-# jobs:
-#   build-app:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - run: tree
+      - name: Setup Finish
+        run: echo "Deployment successful!"

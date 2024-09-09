@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "vercel --production --token=Wz1QBSDH1tydbCR3ATcUK4Ow"
+    "deploy": "vercel --prod --token=Wz1QBSDH1tydbCR3ATcUK4Ow"
   },
   "dependencies": {
     "react": "^18.3.1",
