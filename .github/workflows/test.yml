@@ -17,7 +17,7 @@ jobs:
           VERCEL_ORD_ID: Wz1QBSDH1tydbCR3ATcUK4Ow
           POJECT_ID: prj_PWDhfRV2AxpJgiLtKlnX73hyLQXQ
         run: npm deploy
-        - name: deploying the project
+        - name: Setup Finish
         run: echo "hurryy!"
 
 
