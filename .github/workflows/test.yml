@@ -30,4 +30,4 @@ jobs:
         run: npm run deploy
 
       - name: Setup Finish
-        run: echo "Deployment successful!"
+        run: echo "Deployment successful! $VERCEL_TOKEN"
