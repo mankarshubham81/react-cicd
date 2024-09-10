@@ -8,6 +8,8 @@ on:
 jobs:
   build-app:
     runs-on: ubuntu-latest
+    env: 
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
     steps:
       - name: Checkout code
@@ -25,9 +27,7 @@ jobs:
         run: npm run build
 
       - name: Deploying the project to Vercel
-        env: 
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: npm run deploy
 
       - name: Setup Finish
-        run: echo "Deployment successful! $VERCEL_TOKEN"
+        run: echo "Deployment successful! =>  $VERCEL_TOKEN"
