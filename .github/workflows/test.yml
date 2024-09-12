@@ -6,8 +6,10 @@ on:
       - main
 
 jobs:
-  build-app:
+  buildApp:
     runs-on: ubuntu-latest
+    outputs: 
+      text: ${{ steps.finishedId.outputs.text }}
     env: 
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
@@ -29,5 +31,15 @@ jobs:
       - name: Deploying the project to Vercel
         run: npm run deploy
 
-      - name: Setup Finish
+      - name: Setup Finish buildApp JOB
         run: echo "Deployment successful! =>  $VERCEL_TOKEN"
+      - name: After Finish buildApp JOB
+        id: finishedId
+        run: echo ":: set-output name=text::hello-world-from-buildApp-job" # varible ;text' read by other job like testApp and other
+    testApp:
+      runs-on: ubuntu-latest
+      env: 
+        BUILD_jOB_OUTPUT: ${{ needs.buildApp.outputs.text }}
+
+      steps: 
+        - run: echo "2nd dependent job with varible sharing named BUILD_jOB_OUTPUT=> $BUILD_jOB_OUTPUT, testApp job will execute after buildApp succesfully executes"
