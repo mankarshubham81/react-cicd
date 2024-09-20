@@ -20,7 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3 # Updated to v3 to avoid future node12 deprecation warnings
         with:
-          node-version: '18' # LTS version, or use '20' for future-proofing
+          node-version: '20' # LTS version, or use '20' for future-proofing
 
       - name: Install dependencies
         run: npm install
