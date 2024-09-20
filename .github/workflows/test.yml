@@ -8,19 +8,19 @@ on:
 jobs:
   buildApp:
     runs-on: ubuntu-latest
-    outputs: 
+    outputs:
       text: ${{ steps.finishedId.outputs.text }}
-    env: 
+    env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3 # Updated to v3 to avoid future node12 deprecation warnings
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3 # Updated to v3 to avoid future node12 deprecation warnings
         with:
-          node-version: '18' # It's better to use the latest LTS(Long term support) version.
+          node-version: '18' # LTS version, or use '20' for future-proofing
 
       - name: Install dependencies
         run: npm install
@@ -36,12 +36,14 @@ jobs:
 
       - name: After Finish buildApp JOB
         id: finishedId
-        run: echo "::set-output name=text::hello-world-from-buildApp-job" # varible ;text' read by other job like testApp and other
-    
+        run: echo "hello-world-from-buildApp-job" > output.txt # Replacing set-output
+      - name: Set Output
+        run: echo "text=$(cat output.txt)" >> $GITHUB_ENV # Using environment files instead of set-output
+
   testApp:
     runs-on: ubuntu-latest
-    env: 
-      BUILD_jOB_OUTPUT: ${{ needs.buildApp.outputs.text }}
+    env:
+      BUILD_JOB_OUTPUT: ${{ needs.buildApp.outputs.text }}
 
-    steps: 
-      - run: echo "2nd dependent job with varible sharing named BUILD_jOB_OUTPUT=> $BUILD_jOB_OUTPUT, testApp job will execute after buildApp succesfully executes"
+    steps:
+      - run: echo "2nd dependent job with variable sharing named BUILD_JOB_OUTPUT => $BUILD_JOB_OUTPUT, testApp job will execute after buildApp successfully executes"
